@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background: #0071dc;
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #2a2a2a;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-category {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .error {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="search-container">
+            <button class="back-button" onclick="history.back()">←</button>
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search meals...">
+                <button class="search-button" onclick="searchProducts()">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="product-grid" id="productGrid">
+        <!-- Products will be displayed here -->
+    </div>
+
+    <script>
+        async function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const grid = document.getElementById('productGrid');
+            
+            if (!searchTerm) return;
+            
+            grid.innerHTML = '<div class="loading">Searching products...</div>';
+            
+            try {
+                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`);
+                const data = await response.json();
+                
+                if (!data.meals || data.meals.length === 0) {
+                    grid.innerHTML = '<div class="error">No products found</div>';
+                    return;
+                }
+                
+                grid.innerHTML = data.meals.map(meal => {
+                    // Generate random price for demonstration
+                    const basePrice = (Math.random() * (15 - 5) + 5).toFixed(2);
+                    const discountPrice = (basePrice * 0.8).toFixed(2);
+                    
+                    return `
+                        <div class="product-card">
+                            <img src="${meal.strMealThumb}" 
+                                 alt="${meal.strMeal}"
+                                 class="product-image">
+                            <div class="product-info">
+                                <h3 class="product-name">${meal.strMeal}</h3>
+                                <div class="product-category">
+                                    Category: ${meal.strCategory}<br>
+                                    Origin: ${meal.strArea}
+                                </div>
+                                <div class="product-price">
+                                    <span style="text-decoration: line-through; color: #666;">$${basePrice}</span>
+                                    <span style="color: #dc3545; font-weight: bold;">$${discountPrice}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+            } catch (error) {
+                grid.innerHTML = '<div class="error">Error fetching products. Please try again.</div>';
+                console.error('Error:', error);
+            }
+        }
+
+        // Search when Enter key is pressed
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+    </script>
+</body>
+</html>

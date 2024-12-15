@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 16px;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #2a2a2a;
+        }
+
+        .find-store {
+            font-size: 16px;
+            text-decoration: underline;
+            color: #2a2a2a;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            background: #e6f1fc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+
+        .icon-circle svg {
+            width: 30px;
+            height: 30px;
+            fill: #0071dc;
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #2a2a2a;
+        }
+
+        .member-benefits {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 32px;
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .member-logo {
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: #e6f1fc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+
+        .benefit-text {
+            flex: 1;
+        }
+
+        .benefit-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .benefit-description {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .chevron {
+            color: #666;
+        }
+
+        /* Styling for the back button */
+        .back-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: #0071dc;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: #005bb5;
+        }
+        img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-btn" onclick="window.location.href='index.html'">Back</button>
+
+    <div class="container">
+        <h2 class="section-title">Store Tools</h2>
+        <a href="#" class="find-store">Find a store nearby</a>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <span class="card-title"> Pay</span>
+            </div>
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 3h18v2H3zm0 8h18v2H3zm0 8h18v2H3z"></path>
+                    </svg>
+                </div>
+                <span class="card-title">Check a price</span>
+            </div>
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path>
+                    </svg>
+                </div>
+                <span class="card-title">Store map</span>
+            </div>
+        </div>
+
+        <div class="member-benefits">
+            <div class="member-header">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Ctext x='10' y='20' fill='%230071dc'%3EWalmart+%3C/text%3E%3C/svg%3E" alt="Walmart+" class="member-logo">
+                <span>Subscription Benefit</span>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24">
+                        <img src="https://dl.dropbox.com/scl/fi/y2btaf0vsxi9zzjymhu6u/Animation-1734174666810.gif?rlkey=41g7a50ryssyc0nutunfmk0m5&st=bxs3sbj9&dl=0" alt="" srcset="">
+                    </svg>
+                </div>
+                <div class="benefit-text">
+                    <div class="benefit-title">Fast Delivery</div>
+                    <div class="benefit-description">Arrives in less than 90 minutes</div>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24">
+                       <img src="https://dl.dropbox.com/scl/fi/a43qz1iiuw3pyyf1iu52o/Animation-1734177554369.gif?rlkey=478dbxilugankaxj35j3k8z1u&st=w4fkn8br&dl=0s" alt="" srcset="">
+                    </svg>
+                </div>
+                <div class="benefit-text">
+                    <div class="benefit-title">15% offeres</div>
+                    <div class="benefit-description">"Get 15% off on your purchase!</div>
+                </div>
+                <span class="chevron">›</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Popular Services</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8 11h-2v2H7v-2H5v-2h2V9h2v3h2v2zm6 1c0 .55-.45 1-1 1h-4v-2h4v-2h-2V9h2c.55 0 1 .45 1 1v1.5c0 .55-.45 1-1 1v.5h1v1z"></path>
+                    </svg>
+                </div>
+                <span class="card-title">Pharmacy</span>
+            </div>
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-5h14v5z"></path>
+                    </svg>
+                </div>
+                <span class="card-title">Auto</span>
+            </div>
+            <div class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 6c1.11 0 2-.9 2-2s-.89-2-2-2c-1.11 0-2 .9-2 2s.89 2 2 2zm0 2c-1.11 0-2 .9-2 2s.89 2 2 2c1.11 0 2-.9 2-2s-.89-2-2-2zm0 6c-1.11 0-2 .9-2 2s.89 2 2 2c1.11 0 2-.9 2-2s-.89-2-2-2z"></path>
+                    </svg>
+                </div>
+                <span class="card-title">Custom Cakes</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

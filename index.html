@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>VeggieMart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+        }
+
+        .top-nav {
+            background: #0071dc;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            color: white;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ffc220;
+            color: black;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem 2.5rem;
+            border-radius: 100px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .scan-icon {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .delivery-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .main-content {
+            margin-top: 160px;
+            margin-bottom: 50px;
+            height: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+
+        .promo-banner {
+            background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(57,57,235,1) 51%, rgba(0,72,87,1) 83%);
+            color: white;
+            margin-top: 30px;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner-text {
+            flex: 1;
+        }
+
+        .banner-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .banner-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .category-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.8rem;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: #0071dc;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+
+       /* Onboarding Styles */
+       #onboardingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .onboarding-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide-wrapper {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background: rgb(247,207,225);
+background: radial-gradient(circle, rgba(247,207,225,1) 0%, rgba(148,187,233,1) 100%);
+            text-align: center;
+        }
+
+        .slide-image {
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .slide-content h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .slide-content p {
+            color: #666;
+        }
+
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background: #0071dc;
+        }
+
+        .get-started-btn {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            background: #0071dc;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+      /* Auth Modal Base Styles */
+.auth-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+/* Modal Content */
+.auth-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+/* Form Title */
+.auth-content h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* Input Fields */
+.auth-form input {
+    padding: 0.9rem 1rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    outline: none;
+}
+
+.auth-form input:focus {
+    border-color: #0071dc;
+    box-shadow: 0 0 0 3px rgba(0, 113, 220, 0.1);
+}
+
+/* File Input Styling */
+.auth-form input[type="file"] {
+    padding: 10px;
+    border: 2px dashed #e1e1e1;
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+.auth-form input[type="file"]:hover {
+    border-color: #0071dc;
+    background: #f0f7ff;
+}
+
+/* Submit Button */
+.auth-form button {
+    padding: 1rem;
+    background: #0071dc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 0.5rem;
+}
+
+.auth-form button:hover {
+    background: #0062bd;
+    transform: translateY(-1px);
+}
+
+.auth-form button:active {
+    transform: translateY(0);
+}
+
+/* Switch Account Text */
+.auth-content p {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.auth-content p a {
+    color: #0071dc;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.auth-content p a:hover {
+    text-decoration: underline;
+}
+
+/* Form Groups */
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background: white;
+    padding: 0 4px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Error Messages */
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+/* Loading State */
+.auth-form button.loading {
+    background: #ccc;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.auth-form button.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes spin {
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Success Message */
+.success-message {
+    text-align: center;
+    color: #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #d4edda;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+    .auth-content {
+        padding: 2rem;
+        width: 95%;
+    }
+
+    .auth-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-form input {
+        padding: 0.8rem;
+    }
+}
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .profile-content {
+            text-align: center;
+            padding: 1rem;
+        }
+        .modal-content {
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+}
+.bitcoin-icons--home-outline {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230066ff' d='M12.391 4.262a1 1 0 0 0-1.46.035l-6.177 6.919a1 1 0 0 0-.254.666V19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V16a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v3.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-7.591a1 1 0 0 0-.287-.7z'/%3E%3C/svg%3E");
+}
+.close-button:hover {
+    color: #000;
+}
+.qlementine-icons--items-list-16 {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%230066ff' fill-rule='evenodd' d='M0 2c0-.465 0-.697.051-.888a1.5 1.5 0 0 1 1.06-1.06C1.302.001 1.534.001 2 .001s.697 0 .888.051c.518.139.922.543 1.06 1.06c.051.191.051.423.051.888s0 .697-.05.888a1.5 1.5 0 0 1-1.06 1.06c-.192.051-.424.051-.889.051s-.697 0-.888-.051a1.5 1.5 0 0 1-1.06-1.06C0 2.697 0 2.465 0 2m2 1c-.242 0-.389 0-.501-.005a1 1 0 0 1-.128-.012a.5.5 0 0 1-.354-.354c.001.004-.007-.021-.012-.128A12 12 0 0 1 1 2c0-.242 0-.39.005-.501c.005-.107.013-.132.012-.128a.5.5 0 0 1 .354-.354a.6.6 0 0 1 .128-.012C1.611 1 1.759 1 2 1s.389 0 .501.005c.107.005.132.013.128.012a.5.5 0 0 1 .354.354c-.001-.004.007.021.012.128c.005.112.005.26.005.5c0 .243 0 .39-.005.502a1 1 0 0 1-.012.128a.5.5 0 0 1-.354.354c.004-.001-.021.007-.128.012C2.389 3 2.241 3 2 3M0 8c0-.465 0-.697.051-.888a1.5 1.5 0 0 1 1.06-1.06c.191-.051.423-.051.888-.051s.697 0 .888.051c.518.139.922.543 1.06 1.06c.051.191.051.423.051.888s0 .697-.05.888a1.5 1.5 0 0 1-1.06 1.06c-.192.051-.424.051-.889.051s-.697 0-.888-.051a1.5 1.5 0 0 1-1.06-1.06C0 8.697 0 8.465 0 8m2 1c-.242 0-.389 0-.501-.005a1 1 0 0 1-.128-.012a.5.5 0 0 1-.354-.354c.001.004-.007-.021-.012-.128A12 12 0 0 1 1 8c0-.242 0-.389.005-.501c.005-.107.013-.132.012-.128a.5.5 0 0 1 .354-.354s.028-.007.128-.012C1.611 7 1.759 7 2 7s.389 0 .501.005c.107.005.132.013.128.012a.5.5 0 0 1 .354.354s.007.028.012.128C3 7.611 3 7.759 3 8c0 .242 0 .389-.005.501a1 1 0 0 1-.012.128a.5.5 0 0 1-.354.354s-.028.007-.128.012C2.389 9 2.241 9 2 9M.051 13.1C0 13.291 0 13.523 0 13.988s0 .698.051.888a1.5 1.5 0 0 0 1.06 1.06c.191.051.423.051.888.051s.697 0 .888-.051a1.5 1.5 0 0 0 1.06-1.06c.051-.191.051-.423.051-.888s0-.698-.05-.888a1.5 1.5 0 0 0-1.06-1.06c-.192-.051-.424-.051-.889-.051s-.697 0-.888.051a1.5 1.5 0 0 0-1.06 1.06m1.45 1.88c.112.005.26.005.501.005s.39 0 .501-.005a1 1 0 0 0 .128-.012a.5.5 0 0 0 .353-.354c0-.003.007-.034.012-.128c.005-.112.005-.26.005-.5s0-.39-.005-.502c-.005-.1-.012-.128-.012-.128a.5.5 0 0 0-.353-.353s-.028-.007-.128-.011c-.112-.006-.26-.006-.501-.006s-.389 0-.501.006a1 1 0 0 0-.128.011a.5.5 0 0 0-.353.354s-.007.028-.012.128c-.005.112-.005.26-.005.501s0 .39.005.501c.005.107.013.132.012.128a.5.5 0 0 0 .354.354a1 1 0 0 0 .128.012z' clip-rule='evenodd'/%3E%3Cpath fill='%230066ff' d='M6.5 2a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zM6 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m.5 5.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z'/%3E%3C/svg%3E");
+}
+.si--search-duotone {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath fill='%230066ff' fill-opacity='0.16' d='M11 19a8 8 0 1 0 0-16a8 8 0 0 0 0 16'/%3E%3Cpath stroke='%230066ff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' stroke-width='1.5' d='m21 21l-4-4m2-6a8 8 0 1 1-16 0a8 8 0 0 1 16 0'/%3E%3C/g%3E%3C/svg%3E");
+}
+.hugeicons--power-service {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%230066ff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' color='%230066ff'%3E%3Cpath d='M12.5 8L10 12h4l-2.5 4'/%3E%3Cpath d='M21.011 14.14c.522-.145.783-.216.886-.354s.103-.358.103-.8v-1.972c0-.442 0-.663-.103-.8c-.103-.138-.364-.21-.886-.353c-1.95-.537-3.171-2.617-2.668-4.594c.139-.544.208-.816.142-.975s-.256-.27-.635-.49l-1.725-.998c-.372-.216-.558-.324-.725-.3c-.167.022-.356.214-.733.598a3.75 3.75 0 0 1-5.333 0c-.377-.384-.565-.576-.732-.599s-.353.085-.725.3l-1.725 1c-.38.22-.57.33-.635.489c-.066.16.003.431.141.975c.503 1.977-.718 4.057-2.669 4.594c-.522.144-.783.215-.886.353s-.103.358-.103.8v1.973c0 .441 0 .662.103.8c.103.137.364.208.886.352c1.95.537 3.171 2.617 2.668 4.594c-.139.544-.208.816-.142.975s.256.27.635.49l1.725.999c.372.215.558.323.725.3s.356-.215.733-.599a3.75 3.75 0 0 1 5.336 0c.377.384.565.576.732.599s.353-.085.726-.3l1.724-1c.38-.22.57-.33.635-.489c.066-.16-.003-.431-.141-.975c-.504-1.977.716-4.057 2.666-4.594'/%3E%3C/g%3E%3C/svg%3E");
+}
+.line-md--account {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%230066ff' stroke-dasharray='28' stroke-dashoffset='28' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='M4 21v-1c0 -3.31 2.69 -6 6 -6h4c3.31 0 6 2.69 6 6v1'%3E%3Canimate fill='freeze' attributeName='stroke-dashoffset' dur='0.4s' values='28;0'/%3E%3C/path%3E%3Cpath d='M12 11c-2.21 0 -4 -1.79 -4 -4c0 -2.21 1.79 -4 4 -4c2.21 0 4 1.79 4 4c0 2.21 -1.79 4 -4 4Z'%3E%3Canimate fill='freeze' attributeName='stroke-dashoffset' begin='0.4s' dur='0.4s' values='28;0'/%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+}
+    </style>
+</head>
+<body>
+    <div id="onboardingScreen">
+        <div class="onboarding-container" id="slideshowContainer">
+            <div class="slide-wrapper" id="slideWrapper">
+                <!-- Slides will be dynamically added here -->
+            </div>
+            <div class="slide-indicators" id="slideIndicators">
+                <!-- Indicators will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    <nav class="top-nav">
+        <div class="header-top">
+            <div class="logo">FarmFresh</div>
+            <div class="cart-container">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-bar" placeholder="Search fresh vegetables...">
+            <span class="scan-icon">📷</span>
+        </div>
+        <div class="delivery-info">
+            <span>📍</span>
+            <div>Delivery to: Your Location</div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="promo-banner">
+            <div class="banner-text">
+                <h2>Fresh Deals</h2>
+                <p>Up to 50% off on organic vegetables</p>
+            </div>
+            <img src="https://dl.dropbox.com/scl/fi/txnm3dus9225mu1joux8r/water-2943518_1280.jpg?rlkey=9om82l6f1b11dtp2mdsn78kzv&st=hpb2m6is&dl=0" alt="Fresh vegetables" class="banner-image">
+        </div>
+
+        <div class="category-grid">
+            <a href="leafy.html" class="category-card" style="text-decoration: none; color: inherit;">
+                <img src="https://cdn.pixabay.com/photo/2021/01/31/12/25/lettuce-5966735_1280.jpg" alt="Leafy Greens" class="category-image">
+                <h3>Leafy Greens</h3>
+                <p>Starting at 89</p>
+            </a>
+            <a href="root.html" class="category-card" style="text-decoration: none; color: inherit;">
+                <img src="https://cdn.pixabay.com/photo/2021/07/29/10/45/pickled-6506913_1280.jpg" alt="Root Vegetables" class="category-image">
+                <h3>Root Vegetables</h3>
+                <p>Starting at 99</p>
+            </a>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon"><span class="bitcoin-icons--home-outline"></span></span>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon"><a href="mylist.html"><span class="qlementine-icons--items-list-16"></span></a></span>
+            <span>My Items</span>
+        </div>
+        <div class="nav-item search-btn">             
+            <span class="nav-icon"><span class="si--search-duotone"></span></span>             
+            <span>Search</span>         
+        </div>     
+        <div class="nav-item">
+            <span class="nav-icon"><a href="service.html"><span class="hugeicons--power-service"></span></a></span>
+            <span>Services</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon"><span class="line-md--account"></span></span>
+            <span>Account</span>
+        </div>
+    </nav>
+    
+      <!-- Add Auth Modals -->
+      <div id="signupModal" class="auth-modal">
+        <div class="auth-content">
+            <h2>Sign Up</h2>
+            <form id="signupForm" class="auth-form">
+                <input type="file" id="profilePhoto" accept="image/*" required>
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="tel" id="signupMobile" placeholder="Mobile Number" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </div>
+    </div>
+
+    <div id="loginModal" class="auth-modal">
+        <div class="auth-content">
+            <button class="close-button" id="loginModalCloseBtn">&times;</button>
+            <h2>Welcome Back</h2>
+            <div class="success-message" id="loginSuccess">
+                Successfully logged in!
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="loginEmail" 
+                        placeholder="Enter your email" 
+                        required
+                    >
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        placeholder="Enter your password" 
+                        required
+                    >
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <button type="submit" id="loginSubmit">
+                    Log In
+                </button>
+            </form>
+            <p>
+                Don't have an account? <a href="#" id="showSignup">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="profileModal" class="auth-modal">
+        <div class="auth-content">
+            <span id="profileModalCloseBtn" class="close-button">&times;</span>
+            <h2>Profile</h2>
+            <div class="profile-content">
+                <img id="userProfilePhoto" src="/api/placeholder/100/100" alt="Profile Photo" class="profile-photo">
+                <h3 id="userName">Name</h3>
+                <p id="userEmail">Email</p>
+                <p id="userMobile">Mobile</p>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script
+    src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+    type="module"
+  ></script>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", () => {
+    const navItems = document.querySelectorAll(".nav-item");
+
+    navItems.forEach(item => {
+        item.addEventListener("click", () => {
+            // Remove 'active' class from all items
+            navItems.forEach(nav => nav.classList.remove("active"));
+
+            // Add 'active' class to the clicked item
+            item.classList.add("active");
+        });
+    });
+});
+
+// Update your import statements to ensure full Firebase SDK loading
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
+import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyC293rbJspVxRheRyvlBMPiivw8UWNEkjQ",
+    authDomain: "messageapp-47727.firebaseapp.com",
+    databaseURL: "https://messageapp-47727-default-rtdb.firebaseio.com",
+    projectId: "messageapp-47727",
+    storageBucket: "messageapp-47727.appspot.com",
+    messagingSenderId: "121824970903",
+    appId: "1:121824970903:web:2b31ddb44e54f9d80741d2",
+    measurementId: "G-MZFT5YEK7S"
+};
+
+// Initialize Firebase
+try {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+
+    // Modal elements
+    const signupModal = document.getElementById('signupModal');
+    const loginModal = document.getElementById('loginModal');
+    const profileModal = document.getElementById('profileModal');
+
+    // Form elements
+    const signupForm = document.getElementById('signupForm');
+    const loginForm = document.getElementById('loginForm');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Close buttons
+    const loginModalCloseBtn = document.getElementById('loginModalCloseBtn');
+    const profileModalCloseBtn = document.getElementById('profileModalCloseBtn');
+
+    // Modal management functions
+    function hideAllModals() {
+        [signupModal, loginModal, profileModal].forEach(modal => {
+            modal.style.display = 'none';
+        });
+    }
+
+    function showModal(modal) {
+        hideAllModals();
+        modal.style.display = 'flex';
+    }
+
+    // Close button handlers
+    [loginModalCloseBtn, profileModalCloseBtn].forEach(btn => {
+        btn.addEventListener('click', hideAllModals);
+    });
+
+    // Modal switching
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+        e.preventDefault();
+        showModal(loginModal);
+    });
+
+    document.getElementById('showSignup').addEventListener('click', (e) => {
+        e.preventDefault();
+        showModal(signupModal);
+    });
+
+    // Sign up form submission
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const file = document.getElementById('profilePhoto').files[0];
+        const name = document.getElementById('signupName').value;
+        const mobile = document.getElementById('signupMobile').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+
+        try {
+            // Create user account
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Upload profile photo
+            const storageRef = ref(storage, `profiles/${user.uid}`);
+            await uploadBytes(storageRef, file);
+            const photoURL = await getDownloadURL(storageRef);
+
+            // Update profile
+            await updateProfile(user, { displayName: name, photoURL });
+
+            // Save user details
+            await setDoc(doc(db, 'users', user.uid), {
+                name,
+                email,
+                mobile,
+                photoURL,
+                createdAt: new Date().toISOString()
+            });
+
+            hideAllModals();
+            alert('Account created successfully!');
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            hideAllModals();
+            alert('Logged in successfully!');
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    // Logout handler
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            hideAllModals();
+            updateUIForGuest();
+        } catch (error) {
+            alert(error.message);
+        }
+    });
+
+    // Profile UI update
+    async function updateUIForUser(user) {
+        try {
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            const userData = userDoc.data();
+
+            // Update profile photo in nav
+            const accountIcon = document.querySelector('.nav-item:last-child .nav-icon');
+            accountIcon.innerHTML = `<img src="${userData.photoURL}" alt="Profile" style="width: 24px; height: 24px; border-radius: 50%;">`;
+
+            // Update profile modal content
+            document.getElementById('userProfilePhoto').src = userData.photoURL;
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('userEmail').textContent = userData.email;
+            document.getElementById('userMobile').textContent = userData.mobile;
+        } catch (error) {
+            console.error('Error updating UI:', error);
+        }
+    }
+
+    // Guest UI update
+    function updateUIForGuest() {
+        const accountIcon = document.querySelector('.nav-item:last-child .nav-icon');
+        accountIcon.innerHTML = '👤';
+    }
+
+    // Profile navigation click handler
+    document.querySelector('.nav-item:last-child').addEventListener('click', () => {
+        if (auth.currentUser) {
+            showModal(profileModal);
+        } else {
+            showModal(loginModal);
+        }
+    });
+
+    // Auth state observer
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            updateUIForUser(user);
+        } else {
+            updateUIForGuest();
+        }
+    });
+
+} catch (error) {
+    console.error('Firebase initialization error:', error);
+}
+        const slides = [
+            {
+                image: "https://dl.dropbox.com/scl/fi/o6dzfv00mvaidvkcgeg82/Animation-1734176502324.gif?rlkey=w2au0hcno0baathbvw4aq8wbp&st=p9ie4lp4&dl=0",
+                title: "Fresh Organic Vegetables",
+                description: "Discover farm-fresh produce delivered to your doorstep"
+            },
+            {
+                image: "https://dl.dropbox.com/scl/fi/zwj4ow5wvl01la9ig6jnp/Animation-1734174220712-1.gif?rlkey=q61p1rhs3idq5bmkwh176a4gc&st=gj4o0pv5&dl=0",
+                title: "Quality Guaranteed",
+                description: "Hand-picked vegetables from local farmers"
+            },
+            {
+                image: "https://dl.dropbox.com/scl/fi/y2btaf0vsxi9zzjymhu6u/Animation-1734174666810.gif?rlkey=41g7a50ryssyc0nutunfmk0m5&st=bxs3sbj9&dl=0",
+                title: "Fast Delivery",
+                description: "Vegetables at your door within hours"
+            },
+            {
+                image: "https://dl.dropbox.com/scl/fi/a43qz1iiuw3pyyf1iu52o/Animation-1734177554369.gif?rlkey=478dbxilugankaxj35j3k8z1u&st=w4fkn8br&dl=0",
+                title: "Great Prices",
+                description: "Affordable organic vegetables for everyone"
+            },
+            {
+                image: "https://dl.dropbox.com/scl/fi/q2y2244n60htdnlz9oa78/Animation-1734176722027.gif?rlkey=ubu2de7lrh5midpmgdkpzv7nb&st=xka8v5wu&dl=0",
+                title: "Healthy Living",
+                description: "Nutrition-packed vegetables for your wellness"
+            }
+        ];
+
+        let currentSlide = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const slideWrapper = document.getElementById('slideWrapper');
+        const slideIndicators = document.getElementById('slideIndicators');
+        const onboardingScreen = document.getElementById('onboardingScreen');
+
+        // Render slides and indicators
+        function renderSlides() {
+            slideWrapper.innerHTML = slides.map((slide, index) => `
+                <div class="slide" data-index="${index}">
+                    <img src="${slide.image}" alt="${slide.title}" class="slide-image">
+                    <div class="slide-content">
+                        <h2>${slide.title}</h2>
+                        <p>${slide.description}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            slideIndicators.innerHTML = slides.map((_, index) => `
+                <span class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></span>
+            `).join('');
+
+            // Add event listeners to indicators
+            slideIndicators.querySelectorAll('.indicator').forEach(indicator => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = parseInt(indicator.dataset.index);
+                    updateSlide();
+                });
+            });
+        }
+
+        // Update slide position and indicators
+        function updateSlide() {
+            slideWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update active indicator
+            document.querySelectorAll('.indicator').forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            document.querySelector(`.indicator[data-index="${currentSlide}"]`).classList.add('active');
+
+            // Show/hide get started button on last slide
+            if (currentSlide === slides.length - 1) {
+                const getStartedBtn = document.createElement('button');
+                getStartedBtn.textContent = 'Get Started';
+                getStartedBtn.classList.add('get-started-btn');
+                getStartedBtn.addEventListener('click', () => {
+                    onboardingScreen.style.display = 'none';
+                    document.getElementById('loginModal').style.display = 'flex';
+                });
+                onboardingScreen.appendChild(getStartedBtn);
+            } else {
+                const existingBtn = document.querySelector('.get-started-btn');
+                if (existingBtn) existingBtn.remove();
+            }
+        }
+
+        // Touch event handlers
+        onboardingScreen.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        onboardingScreen.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const diffX = touchStartX - touchEndX;
+            
+            if (diffX > 50 && currentSlide < slides.length - 1) {
+                // Swipe left
+                currentSlide++;
+            } else if (diffX < -50 && currentSlide > 0) {
+                // Swipe right
+                currentSlide--;
+            }
+            
+            updateSlide();
+        }
+
+        // Authentication Modal Switching
+        document.getElementById('showLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('signupModal').style.display = 'none';
+            document.getElementById('loginModal').style.display = 'flex';
+        });
+
+        document.getElementById('showSignup').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('signupModal').style.display = 'flex';
+        });
+
+        // Initialize slides on page load
+        renderSlides();
+    </script>
+   
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #007bff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-button:hover {
+            opacity: 0.8;
+        }
+
+        .list-container {
+            background-color: #fff;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-height: 200px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <button class="back-button" onclick="goBack()">
+                ← Back
+            </button>
+        </header>
+        <div class="list-container">
+            <!-- List items will be added here -->
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // You can customize this function based on your needs
+            window.history.back();
+            // Alternative: window.location.href = 'previous-page.html';
+        }
+    </script>
+</body>
+</html>
