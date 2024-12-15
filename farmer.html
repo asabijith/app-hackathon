@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer's Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Available Products</h1>
+        
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you are using
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBTvxdG5xX_54ndGNYZd9l4iCZJalCSO74",
+            authDomain: "aaaaa-b5f62.firebaseapp.com",
+            databaseURL: "https://aaaaa-b5f62-default-rtdb.firebaseio.com",
+            projectId: "aaaaa-b5f62",
+            storageBucket: "aaaaa-b5f62.appspot.com",
+            messagingSenderId: "484195823337",
+            appId: "1:484195823337:web:c063974942a12ef0dd8a78",
+            measurementId: "G-XHTQN71J76"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Create product card
+        function createProductCard(product, id) {
+            return `
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="${product.imageUrl}" alt="${product.productName}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h2 class="text-xl font-semibold mb-2">${product.productName}</h2>
+                        <p class="text-gray-600 mb-2">${product.description}</p>
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <span class="text-gray-500 line-through">₹${product.originalPrice}</span>
+                                <span class="text-lg font-bold text-green-600 ml-2">₹${product.discountPrice}</span>
+                            </div>
+                            <span class="text-sm text-gray-500">Stock: ${product.stockQuantity}</span>
+                        </div>
+                        <button onclick="contactSeller('${id}')" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Contact Seller
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Contact seller function
+        window.contactSeller = function(productId) {
+            alert('Contact feature will be implemented here for product: ' + productId);
+        }
+
+        // Listen for products in real-time
+        const productsRef = ref(database, 'products');
+        onValue(productsRef, (snapshot) => {
+            const productGrid = document.getElementById('productGrid');
+            productGrid.innerHTML = '';
+            
+            snapshot.forEach((childSnapshot) => {
+                const product = childSnapshot.val();
+                const productId = childSnapshot.key;
+                const productCard = createProductCard(product, productId);
+                productGrid.innerHTML += productCard;
+            });
+        });
+    </script>
+</body>
+</html>
