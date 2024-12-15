@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agricultural Product Bidding Platform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .bidding-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 600px;
+            padding: 20px;
+        }
+        .product-details {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .product-image {
+            width: 150px;
+            height: 150px;
+            background-color: #e0e0e0;
+            margin-right: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+        }
+        .product-info {
+            flex-grow: 1;
+        }
+        .product-info h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .product-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .bid-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .bid-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .bid-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .bid-input button {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bid-input button:hover {
+            background-color: #2ecc71;
+        }
+        .current-bids {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        .bid-entry {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .bid-status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="bidding-container">
+        <div class="product-details">
+            <div class="product-image">
+                Product Image
+            </div>
+            <div class="product-info">
+                <h2>Wheat Crop - Summer Harvest</h2>
+                <div class="product-details-grid">
+                    <div><strong>Quantity:</strong> 500 Quintals</div>
+                    <div><strong>Quality:</strong> Grade A</div>
+                    <div><strong>Location:</strong> Punjab, India</div>
+                    <div><strong>Harvest Date:</strong> June 2024</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bid-section">
+            <div class="bid-input">
+                <input type="number" placeholder="Enter your bid price (₹/Quintal)" min="0" step="10">
+                <button>Place Bid</button>
+            </div>
+            
+            <div class="current-bids">
+                <h3>Current Bids</h3>
+                <div class="bid-entry">
+                    <span>Buyer A</span>
+                    <span>₹2,500/Quintal</span>
+                </div>
+                <div class="bid-entry">
+                    <span>Buyer B</span>
+                    <span>₹2,480/Quintal</span>
+                </div>
+                <div class="bid-entry">
+                    <span>Buyer C</span>
+                    <span>₹2,450/Quintal</span>
+                </div>
+            </div>
+            
+            <div class="bid-status">
+                <div>Base Price: ₹2,400/Quintal</div>
+                <div>Highest Bid: ₹2,500/Quintal</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
